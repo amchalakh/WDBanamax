@@ -1,0 +1,21 @@
+---
+applications:
+- name: pal-tracker
+  path: build/libs/pal-tracker.jar
+  routes:
+  - route: pal-tracker-pietro-sampsonite-Kanojiya.cfapps.io
+  env:
+    WELCOME_MESSAGE: Hello from Cloud Foundry
+    JBP_CONFIG_OPEN_JDK_JRE: '{ jre: { version: 11.+ } }'
+hooks:
+  BeforeInstall:
+    - location: scripts/install_dependencies
+      timeout: 300
+      runas: root
+    - location: scripts/start_server
+      timeout: 300
+      runas: root
+  ApplicationStop:
+    - location: scripts/stop_server
+      timeout: 300
+      runas: root
